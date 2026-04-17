@@ -1417,31 +1417,110 @@ class Boss {
         let w = this.width * CELL_SIZE;
         let h = this.height * CELL_SIZE;
 
+        ctx.save();
+        ctx.translate(x + w / 2, y + h / 2);
+
+        // Body Shadow
         ctx.shadowBlur = 20;
         ctx.shadowColor = this.color;
-        ctx.fillStyle = '#220022';
-        ctx.fillRect(x + 5, y + 5, w - 10, h - 10);
-        ctx.shadowBlur = 0;
-        
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = 4;
-        ctx.strokeRect(x + 5, y + 5, w - 10, h - 10);
-        
-        ctx.fillStyle = '#ff0000';
-        ctx.beginPath();
-        ctx.arc(x + w/4, y + h/3, 8, 0, Math.PI*2);
-        ctx.arc(x + w*0.75, y + h/3, 8, 0, Math.PI*2);
-        ctx.fill();
 
-        ctx.fillStyle = 'red';
-        ctx.fillRect(x + 5, y - 15, w - 10, 8);
-        ctx.fillStyle = '#00ff00';
-        ctx.fillRect(x + 5, y - 15, (w - 10) * (this.hp / this.maxHp), 8);
+        if (this.type === 'bat') {
+            // Draw Bat
+            ctx.fillStyle = '#110033';
+            ctx.beginPath();
+            // Wings
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(-w, -h/2, -w, 0);
+            ctx.quadraticCurveTo(-w/2, h/4, 0, h/3);
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(w, -h/2, w, 0);
+            ctx.quadraticCurveTo(w/2, h/4, 0, h/3);
+            ctx.fill();
+            
+            // Body
+            ctx.beginPath();
+            ctx.arc(0, 0, w/4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Eyes
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(-w/8, -h/8, 6, 0, Math.PI * 2);
+            ctx.arc(w/8, -h/8, 6, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.type === 'spider') {
+            // Draw Spider
+            ctx.strokeStyle = '#220022';
+            ctx.lineWidth = 6;
+            // Legs
+            for (let i = 0; i < 4; i++) {
+                let angle = (Math.PI / 4) * i - Math.PI / 8;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(Math.cos(angle) * w/1.5, Math.sin(angle) * h/1.5);
+                ctx.moveTo(0, 0);
+                ctx.lineTo(-Math.cos(angle) * w/1.5, Math.sin(angle) * h/1.5);
+                ctx.stroke();
+            }
+            // Body
+            ctx.fillStyle = '#1a001a';
+            ctx.beginPath();
+            ctx.arc(0, h/6, w/3, 0, Math.PI * 2); // Abdomen
+            ctx.arc(0, -h/6, w/4, 0, Math.PI * 2); // Thorax
+            ctx.fill();
+            // Eyes
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(-w/10, -h/4, 5, 0, Math.PI * 2);
+            ctx.arc(w/10, -h/4, 5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.type === 'crystal_golem') {
+            // Draw Crystal Golem
+            ctx.fillStyle = '#2b0033';
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(0, -h/2);
+            ctx.lineTo(w/3, -h/4);
+            ctx.lineTo(w/2, h/4);
+            ctx.lineTo(0, h/2);
+            ctx.lineTo(-w/2, h/4);
+            ctx.lineTo(-w/3, -h/4);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(0, -h/2);
+            ctx.lineTo(0, h/2);
+            ctx.lineTo(w/2, h/4);
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+        }
+
+        ctx.restore();
+
+        // Healthbar Background
+        ctx.fillStyle = 'rgba(0,0,0,0.8)';
+        ctx.fillRect(x, y - 20, w, 12);
         
+        // Healthbar Fill
+        ctx.fillStyle = '#00ff00';
+        let hpRatio = Math.max(0, this.hp / this.maxHp);
+        if (hpRatio < 0.3) ctx.fillStyle = '#ff0000';
+        else if (hpRatio < 0.6) ctx.fillStyle = '#ffaa00';
+        ctx.fillRect(x + 1, y - 19, (w - 2) * hpRatio, 10);
+        
+        // Boss Name
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 16px Inter';
         ctx.textAlign = 'center';
-        ctx.fillText(this.name, x + w/2, y - 20);
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = '#000000';
+        ctx.fillText(this.name, x + w/2, y - 25);
+        ctx.shadowBlur = 0;
     }
 
     takeTurn() {
