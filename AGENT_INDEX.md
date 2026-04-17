@@ -1,0 +1,63 @@
+# Agent Index
+Dieses Paket enthält spezialisierte Agenten für ein Candy-Crush-artig organisiertes Team, angepasst auf **dein** Spiel Dew Drop Pop.
+## Agenten
+- `01_game_director.md` — **Game Director**: Definiert die kreative Vision, das Kerngefühl und die nicht verhandelbaren Designprinzipien des Spiels.
+- `02_executive_producer.md` — **Executive Producer**: Priorisiert Roadmap, Umfang, Teamabfolge und Release-Reihenfolge.
+- `03_product_lead.md` — **Product Lead**: Verbindet Spielspaß, Marktfit, Monetarisierung und Live-Betrieb.
+- `04_creative_director.md` — **Creative Director**: Sichert Stil, Tonalität, Fantasy-Kohärenz und Markenidentität.
+- `05_core_gameplay_designer.md` — **Core Gameplay Designer**: Verantwortet das Grid-Loop, die Zuglogik, Kettenreaktionen und Moment-to-Moment-Spielspaß.
+- `06_systems_designer.md` — **Systems Designer**: Baut Zustände, Progression, Ressourcen, Booster und Meta-Systeme.
+- `07_match_puzzle_designer.md` — **Puzzle Mechanics Designer**: Definiert Spezialtropfen, Blocker, Synergien, Kaskaden und lesbare Regeln.
+- `08_level_designer.md` — **Level Designer**: Erstellt einzelne Levelziele, Feldlayouts, Drop-Verteilungen und Lernkurven.
+- `09_puzzle_qa_designer.md` — **Puzzle QA Designer**: Prüft Fairness, Lösbarkeit, Sackgassen und Frustmomente.
+- `10_world_map_designer.md` — **World Map Designer**: Gestaltet Overworld, Kapitelpfade, Knoten, Boss-Gates und Reisegefühl.
+- `11_boss_designer.md` — **Boss Designer**: Entwickelt Boss-Muster, Telegrapher, Immunitäten und mehrphasige Kämpfe.
+- `12_economy_designer.md` — **Economy Designer**: Plant Coins, Drops, Shop-Preise, Belohnungen, Sterne und Währungsflüsse.
+- `13_monetization_designer.md` — **Monetization Designer**: Entwirft faire Kaufangebote, Bundles, Value-Ladder und Live-Angebote.
+- `14_rewards_designer.md` — **Rewards Designer**: Entwirft Truhen, Daily Rewards, Streaks, Bonus Drops und Event-Belohnungen.
+- `15_liveops_designer.md` — **LiveOps Designer**: Plant Events, Wochenziele, Saisons, Wiederkehrgründe und Kalender.
+- `16_shop_designer.md` — **Shop Designer**: Definiert Shop-Struktur, Produktplatzierung, UX-Fluss und Angebotslogik.
+- `17_ftue_designer.md` — **FTUE / Tutorial Designer**: Baut die ersten 15 Minuten, Tooltips, Entdeckungsreihenfolge und Lernpfade.
+- `18_ux_designer.md` — **UX Designer**: Optimiert Verständlichkeit, Reibung, Flow und Priorität visueller Informationen.
+- `19_ui_designer.md` — **UI Designer**: Entwirft HUD, Overlays, Buttons, Shop-Screens, Map-Screens und Feedback-Layer.
+- `20_accessibility_designer.md` — **Accessibility Designer**: Verbessert Lesbarkeit, Farbtrennung, Bedienbarkeit und Klarheit.
+- `21_art_director.md` — **Art Director**: Legt die visuelle Gesamtqualität und Stilregeln für das Spiel fest.
+- `22_environment_artist.md` — **Environment Artist**: Erstellt Hintergründe, Overworld-Szenen und magische Wald-Orte.
+- `23_prop_icon_artist.md` — **Prop & Icon Artist**: Erstellt Tropfen, Booster, Blocker, HUD-Icons und Shopsymbole.
+- `24_character_designer.md` — **Character Designer**: Definiert Fee-Guide, NPCs, Boss-Silhouetten und Avatarstil.
+- `25_vfx_artist.md` — **VFX Artist**: Entwickelt Pop-, Splash-, Glow-, Combo- und Reward-Effekte.
+- `26_animator.md` — **Animator / Motion Designer**: Verantwortet Bounce, Pulsing, Cascades, UI-Tweens und Character-Motion.
+- `27_technical_artist.md` — **Technical Artist**: Sorgt für Asset-Pipeline, Performance, Export-Standards und Integrationsregeln.
+- `28_sound_designer.md` — **Sound Designer**: Entwickelt Click-, Grow-, Pop-, Combo-, Reward- und UI-Sounds.
+- `29_composer.md` — **Composer**: Erstellt Musik für Map, Gameplay, Shop, Boss und Events.
+- `30_audio_implementer.md` — **Audio Implementer**: Verdrahtet Sound-Events, Layering, Pitch-Variation und Prioritäten.
+- `31_gameplay_programmer.md` — **Gameplay Programmer**: Implementiert Grid, Fragmente, Explosionen, Zustandsübergänge und Speziallogik.
+- `32_ui_programmer.md` — **UI Programmer**: Implementiert HUD, Overlays, Map, Shop und animierte UI-Zustände.
+- `33_client_engineer.md` — **Client Engineer**: Sichert Performance, Savegames, Input, Device-Kompatibilität und Stabilität.
+- `34_backend_engineer.md` — **Backend Engineer**: Plant Profile, Inventar, Events, Shop-Angebote und Remote Config.
+- `35_tools_engineer.md` — **Tools Engineer**: Entwickelt Level-Editor, Content-Tools, Validatoren und Batch-Pipelines.
+- `36_build_release_engineer.md` — **Build & Release Engineer**: Automatisiert Builds, Versionierung, QA-Pakete und Release-Flows.
+- `37_data_analyst.md` — **Data Analyst**: Analysiert Abbruchpunkte, Winrates, Conversion und Progressionsprobleme.
+- `38_game_economist.md` — **Game Economist**: Modelliert Wirtschaft, Sink/Source-Balance und langfristige Stabilität.
+- `39_ab_test_manager.md` — **A/B Test Manager**: Plant kontrollierte Tests für Levels, Angebote, Tutorial und UI-Varianten.
+- `40_telemetry_engineer.md` — **Telemetry Engineer**: Instrumentiert Events, Dashboards und aussagekräftige KPIs.
+- `41_qa_lead.md` — **QA Lead**: Koordiniert Testpläne, Risiko-Matrix und Freigabequalität.
+- `42_qa_automation.md` — **QA Automation Engineer**: Automatisiert Smoke-Tests, Regression und deterministische Puzzleszenarien.
+- `43_community_manager.md` — **Community Manager**: Sammelt Feedback, moderiert Community und übersetzt Stimmungen ins Team.
+- `44_crm_retention_manager.md` — **CRM / Retention Manager**: Plant Push, Inbox, Rückholflüsse und Segmentansprache.
+- `45_support_ops.md` — **Support Operations**: Bearbeitet Tickets, Zahlungsprobleme, Save-Verluste und Event-Themen.
+- `46_ua_manager.md` — **User Acquisition Manager**: Definiert Creatives, CPI-Ziele und kanalbezogene Acquisition-Learnings.
+- `47_marketing_creative_strategist.md` — **Marketing Creative Strategist**: Übersetzt Gameplay in Ads, Trailers, Hooks und Conversion-Botschaften.
+- `48_narrative_designer.md` — **Narrative Designer**: Erstellt leichte Story-Rahmen, Weltennamen, Quests und Figurenstimmen.
+- `49_lore_builder.md` — **Lore Builder**: Entwickelt Mythologie, Regionen, Magie-Regeln und Feen-Weltlogik.
+- `50_idea_generator.md` — **Idea Generator**: Liefert neue Features, Event-Ideen, Mechaniken und kreative Richtungen.
+- `51_innovation_filter.md` — **Innovation Filter**: Prüft Ideen auf Scope, Klarheit, Risiko, Kosten und Fit.
+- `52_feature_architect.md` — **Feature Architect**: Zerlegt große Features in Subsysteme, Abhängigkeiten und Lieferpakete.
+- `53_balance_strategist.md` — **Balance Strategist**: Verknüpft Difficulty, Ressourcenverbrauch und Spielergefühl über alle Systeme.
+- `54_progression_designer.md` — **Progression Designer**: Plant Kapitelkurve, Freischaltungen, Gates und Langzeitmotivation.
+- `55_event_designer.md` — **Event Designer**: Entwirft zeitlich begrenzte Modi, Bosswochen und Sammelevents.
+- `56_social_features_designer.md` — **Social Features Designer**: Definiert Freundeslisten, Gilden, Wettbewerbe, Ranglisten und Helfersysteme.
+- `57_player_journey_mapper.md` — **Player Journey Mapper**: Modelliert Erstkontakt, Lernphase, Midgame und Endgame-Reise.
+- `58_risk_manager.md` — **Risk Manager**: Erkennt Produktions-, Technik-, Scope- und Qualitätsrisiken früh.
+- `59_localization_manager.md` — **Localization Manager**: Sichert Textstruktur, Sprachen, Platzhalter und kulturelle Anpassungen.
+- `60_brand_guardian.md` — **Brand Guardian**: Achtet darauf, dass das Spiel konsistent, familientauglich und stilrein bleibt.
