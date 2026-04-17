@@ -24,35 +24,14 @@
 
     <!-- MAGIC SHOP OVERLAY -->
     <div id="shop-screen" class="overlay">
-        <h1 class="game-title" style="font-size: 60px;">MAGIC SHOP</h1>
-        <p class="subtitle">Purchase Coins with real money (Fake IAP Simulation)</p>
+        <h1 class="game-title" style="font-size: 60px;">BAZAAR OF THE GLADE</h1>
+        <p class="subtitle">Tausche gesammelte Münzen gegen magische Upgrades und Items.</p>
         
-        <div class="shop-container">
-            <div class="shop-item" onclick="buyIAP(500, '$0.99')">
-                <div class="item-icon">💰</div>
-                <div class="item-name">Pouch of Coins</div>
-                <div class="item-amount">500 Coins</div>
-                <button class="price-btn">$0.99</button>
-            </div>
-            <div class="shop-item" onclick="buyIAP(1500, '$1.99')">
-                <div class="item-icon">💎</div>
-                <div class="item-name">Crystal Chest</div>
-                <div class="item-amount">1500 Coins</div>
-                <button class="price-btn">$1.99</button>
-            </div>
-            <div class="shop-item" onclick="buyIAP(5000, '$4.99')">
-                <div class="item-icon">👑</div>
-                <div class="item-name">Royal Vault</div>
-                <div class="item-amount">5000 Coins</div>
-                <button class="price-btn">$4.99</button>
-            </div>
+        <div class="shop-container" id="dynamic-shop-container">
+            <!-- Items werden dynamisch durch Game.ts geladen -->
         </div>
         
-        <div id="iap-processing" style="display:none; color: #00ffff; font-size: 20px; margin-top: 20px; text-shadow: 0 0 10px #00ffff; font-weight: bold;">
-            Connecting to App Store... ⏳
-        </div>
-        
-        <button class="small-btn" onclick="closeShop()" style="margin-top: 30px;">Back to Map</button>
+        <button class="small-btn" onclick="closeShop()" style="margin-top: 30px;">Zurück zur Karte</button>
     </div>
 
     <div id="level-complete" class="overlay">

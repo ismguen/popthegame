@@ -1,4 +1,5 @@
 import { LEVELS } from '../data/LevelConfig';
+import SHOP_ITEMS from '../data/shop.json';
 export const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 const scoreDisplay = document.getElementById('score-display');
@@ -122,8 +123,10 @@ let dropsLeft = 10;
 let progress = JSON.parse(localStorage.getItem('dewDropProgress')) || {
     unlockedLevels: 1,
     stars: {},
-    totalCoins: 0
+    totalCoins: 0,
+    inventory: []
 };
+if (!progress.inventory) progress.inventory = [];
 let totalCoins = progress.totalCoins || 0;
 
 let activeSkill = null;
@@ -1503,38 +1506,58 @@ export function initGame() {
     loop();
 }
 
-// ---- FAKE IAP SHOP LOGIC ----
-window.openShop = function() {
-    document.getElementById('map-screen').classList.remove('active');
-    document.getElementById('shop-screen').classList.add('active');
+// ---- BAZAAR LOGIC ----
+(window as any).openShop = function() {
+    document.getElementById('map-screen')?.classList.remove('active');
+    document.getElementById('shop-screen')?.classList.add('active');
+    renderShop();
 };
 
-window.closeShop = function() {
-    document.getElementById('shop-screen').classList.remove('active');
-    document.getElementById('map-screen').classList.add('active');
+(window as any).closeShop = function() {
+    document.getElementById('shop-screen')?.classList.remove('active');
+    document.getElementById('map-screen')?.classList.add('active');
 };
 
-window.buyIAP = function(amount, price) {
-    let proc = document.getElementById('iap-processing');
-    proc.style.display = 'block';
-    proc.innerText = `Connecting to App Store to purchase ${price}... ⏳`;
+function renderShop() {
+    let container = document.getElementById('dynamic-shop-container');
+    if (!container) return;
+    container.innerHTML = '';
     
-    // Simulate App Store latency
-    setTimeout(() => {
-        proc.innerText = `Payment Successful! ✅ +${amount} Coins added.`;
-        totalCoins += amount;
+    SHOP_ITEMS.forEach(item => {
+        let isOwned = progress.inventory.includes(item.id);
+        let canAfford = totalCoins >= item.cost;
+        let btnText = isOwned && item.type !== 'consumable' ? 'OWNED' : `${item.cost} 🪙`;
+        let disabled = (isOwned && item.type !== 'consumable') || (!canAfford && !isOwned);
+        
+        let el = document.createElement('div');
+        el.className = 'shop-item';
+        el.style.opacity = disabled && !isOwned ? '0.5' : '1';
+        el.innerHTML = `
+            <div class="item-icon" style="color: ${item.color}">${item.icon}</div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-amount" style="font-size: 12px; margin-bottom: 10px;">${item.description}</div>
+            <button class="price-btn" style="background: ${disabled && !isOwned ? '#555' : isOwned && item.type !== 'consumable' ? '#00aa00' : '#44bbff'}" 
+                ${disabled ? 'disabled' : ''} onclick="buyItem('${item.id}', ${item.cost}, '${item.type}')">${btnText}</button>
+        `;
+        container.appendChild(el);
+    });
+}
+
+(window as any).buyItem = function(id: string, cost: number, type: string) {
+    if (totalCoins >= cost) {
+        totalCoins -= cost;
+        if (type !== 'consumable') {
+            progress.inventory.push(id);
+        } else {
+            // handle consumable adding
+            if (id === 'consumable_rain') dropsLeft += 5;
+        }
         saveProgress();
-        
         playSound('coin', 1);
-        setTimeout(() => playSound('coin', 1.2), 100);
-        setTimeout(() => playSound('coin', 1.4), 200);
         
-        // Update coin display on map if needed
         let coinsDisplay = document.getElementById('coins-display');
         if (coinsDisplay) coinsDisplay.innerText = `🪙 ${totalCoins}`;
         
-        setTimeout(() => {
-            proc.style.display = 'none';
-        }, 2500);
-    }, 1500);
+        renderShop();
+    }
 };

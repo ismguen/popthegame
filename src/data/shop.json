@@ -1,0 +1,38 @@
+[
+    {
+        "id": "consumable_rain",
+        "type": "consumable",
+        "name": "Fairy Rain",
+        "description": "Füllt 5 Tautropfen im aktuellen Level auf.",
+        "cost": 150,
+        "icon": "💧",
+        "color": "#00ffff"
+    },
+    {
+        "id": "consumable_sunbeam",
+        "type": "consumable",
+        "name": "Sunbeam",
+        "description": "Lässt einen Tropfen sofort platzen (Kein Zugverlust).",
+        "cost": 100,
+        "icon": "☀️",
+        "color": "#ffcc00"
+    },
+    {
+        "id": "cosmetic_crystal",
+        "type": "cosmetic",
+        "name": "Crystal Skin",
+        "description": "Tautropfen funkeln wie magische Kristalle.",
+        "cost": 1500,
+        "icon": "💎",
+        "color": "#eeccff"
+    },
+    {
+        "id": "upgrade_maxdrops",
+        "type": "upgrade",
+        "name": "Deep Well",
+        "description": "Startest jedes Level mit 12 statt 10 Tropfen.",
+        "cost": 3000,
+        "icon": "🌟",
+        "color": "#ffaa00"
+    }
+]
