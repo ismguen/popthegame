@@ -147,21 +147,36 @@ window.resetProgress = function() {
 };
 
 const levelPositions = [
-    { x: 30, y: 95 }, // 1
-    { x: 60, y: 88 }, // 2
-    { x: 80, y: 80 }, // 3
-    { x: 50, y: 72 }, // 4
-    { x: 20, y: 65 }, // 5
-    { x: 15, y: 55 }, // 6
-    { x: 40, y: 48 }, // 7
-    { x: 70, y: 42 }, // 8
-    { x: 85, y: 32 }, // 9
-    { x: 65, y: 24 }, // 10 (Boss)
-    { x: 35, y: 18 }, // 11
-    { x: 15, y: 12 }, // 12
-    { x: 30, y: 6 },  // 13
-    { x: 60, y: 3 },  // 14
-    { x: 50, y: -2 }   // 15 (Boss) - little bit higher than 0 to allow marker overflow
+    { x: 30, y: 98 }, // 1
+    { x: 60, y: 95 }, // 2
+    { x: 80, y: 91 }, // 3
+    { x: 50, y: 88 }, // 4
+    { x: 20, y: 85 }, // 5
+    { x: 15, y: 81 }, // 6
+    { x: 40, y: 78 }, // 7
+    { x: 70, y: 75 }, // 8
+    { x: 85, y: 71 }, // 9
+    { x: 65, y: 68 }, // 10 (Boss)
+    { x: 35, y: 65 }, // 11
+    { x: 15, y: 61 }, // 12
+    { x: 30, y: 58 }, // 13
+    { x: 60, y: 55 }, // 14
+    { x: 50, y: 52 }, // 15 (Boss)
+    { x: 75, y: 48 }, // 16
+    { x: 85, y: 45 }, // 17
+    { x: 60, y: 41 }, // 18
+    { x: 30, y: 38 }, // 19
+    { x: 15, y: 35 }, // 20 (Boss)
+    { x: 35, y: 31 }, // 21
+    { x: 65, y: 28 }, // 22
+    { x: 80, y: 25 }, // 23
+    { x: 50, y: 21 }, // 24
+    { x: 25, y: 18 }, // 25 (Boss)
+    { x: 10, y: 15 }, // 26
+    { x: 30, y: 11 }, // 27
+    { x: 60, y: 8 },  // 28
+    { x: 85, y: 5 },  // 29
+    { x: 50, y: 2 }   // 30 (Boss)
 ];
 
 window.generateMap = function() {
@@ -171,13 +186,26 @@ window.generateMap = function() {
     
     container.querySelectorAll('.level-node').forEach(n => n.remove());
     
-    // We assume container is 600px width and 1500px height based on CSS
+    // We assume container is 600px width and 2000px height based on CSS
     let w = 600;
-    let h = 1000;
+    let h = 2000;
     
     let pathD = "";
     
-    for (let i = 1; i <= 15; i++) {
+    // Add Chapter Headers
+    let chapter1 = document.createElement('div');
+    chapter1.className = 'chapter-title';
+    chapter1.style.top = '99%';
+    chapter1.innerText = 'CHAPTER 1: THE WHISPERING GLADE';
+    container.appendChild(chapter1);
+    
+    let chapter2 = document.createElement('div');
+    chapter2.className = 'chapter-title chapter-crystal';
+    chapter2.style.top = '49%';
+    chapter2.innerText = 'CHAPTER 2: THE CRYSTAL CAVES';
+    container.appendChild(chapter2);
+    
+    for (let i = 1; i <= 30; i++) {
         let pos = levelPositions[i-1];
         let px = (pos.x / 100) * w;
         let py = (pos.y / 100) * h;
@@ -189,7 +217,8 @@ window.generateMap = function() {
         let isLocked = i > progress.unlockedLevels;
         
         node.className = `level-node ${isLocked ? 'locked' : 'unlocked'}`;
-        if (i === 10 || i === 15) node.classList.add('boss');
+        if (i >= 16) node.classList.add('crystal-node'); // Chapter 2 styling
+        if (i % 5 === 0 && i >= 10) node.classList.add('boss');
         
         node.style.left = pos.x + '%';
         node.style.top = pos.y + '%';
@@ -230,7 +259,7 @@ window.generateMap = function() {
     `;
     
     setTimeout(() => {
-        let currentPos = levelPositions[Math.min(14, progress.unlockedLevels - 1)].y;
+        let currentPos = levelPositions[Math.min(29, progress.unlockedLevels - 1)].y;
         let scrollArea = document.getElementById('map-scroll-area');
         if (scrollArea) {
             let targetY = (currentPos / 100) * h;
@@ -263,7 +292,7 @@ window.restartLevel = function() {
 };
 
 window.nextLevel = function() {
-    if (level < 15) {
+    if (level < 30) {
         window.startGame(level + 1);
     } else {
         window.showMap();
@@ -328,6 +357,12 @@ function initGrid() {
         bosses.push(new Boss('bat', 2, 2));
     } else if (level === 15) {
         bosses.push(new Boss('spider', 3, 3));
+    } else if (level === 20) {
+        bosses.push(new Boss('bat', 3, 2));
+    } else if (level === 25) {
+        bosses.push(new Boss('spider', 4, 3));
+    } else if (level === 30) {
+        bosses.push(new Boss('crystal_golem', 3, 3));
     }
 
     let emptiesForPortals = [];
@@ -1271,7 +1306,7 @@ function checkGameState() {
         
         progress.stars[level] = Math.max(progress.stars[level] || 0, stars);
         if (level === progress.unlockedLevels) {
-            progress.unlockedLevels = Math.min(15, level + 1);
+            progress.unlockedLevels = Math.min(30, level + 1);
         }
         saveProgress();
         
@@ -1380,6 +1415,14 @@ class Boss {
             this.color = '#00ffff';
             this.turnTimer = 0;
             this.name = 'FROST BAT';
+        } else if (type === 'crystal_golem') {
+            this.width = 3;
+            this.height = 3;
+            this.hp = 50;
+            this.maxHp = 50;
+            this.color = '#ff00ff';
+            this.turnTimer = 0;
+            this.name = 'CRYSTAL GOLEM';
         }
     }
 
@@ -1456,6 +1499,14 @@ class Boss {
                                 }
                             }
                         }
+                    }
+                }
+            } else if (this.type === 'crystal_golem') {
+                for (let i=0; i<3; i++) {
+                    let tr = Math.floor(Math.random() * GRID_SIZE);
+                    let tc = Math.floor(Math.random() * GRID_SIZE);
+                    if (grid[tr][tc].type === 'empty' || grid[tr][tc].type === 'drop') {
+                        grid[tr][tc] = { type: 'rock', hp: 3 };
                     }
                 }
             }
