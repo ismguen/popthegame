@@ -1,0 +1,53 @@
+[
+    {
+        "id": 1,
+        "name": "First Drop",
+        "features": { "rocks": 0, "brambles": 0, "webs": 0, "ice": 0, "elements": ["water"] },
+        "mapPos": { "x": 30, "y": 98 }
+    },
+    {
+        "id": 2,
+        "name": "Rocky Path",
+        "features": { "rocks": 0.07, "brambles": 0, "webs": 0, "ice": 0, "elements": ["water"] },
+        "mapPos": { "x": 60, "y": 95 }
+    },
+    {
+        "id": 3,
+        "name": "Thorn Glade",
+        "features": { "rocks": 0.08, "brambles": 0.08, "webs": 0, "ice": 0, "elements": ["water"] },
+        "mapPos": { "x": 80, "y": 91 }
+    },
+    {
+        "id": 4,
+        "name": "Fire Spark",
+        "features": { "rocks": 0.09, "brambles": 0.08, "webs": 0.1, "ice": 0, "elements": ["water", "fire"] },
+        "mapPos": { "x": 50, "y": 88 }
+    },
+    {
+        "id": 5,
+        "name": "Frozen Dew",
+        "features": { "rocks": 0.1, "brambles": 0.08, "webs": 0.1, "ice": 0.1, "elements": ["water", "fire"] },
+        "mapPos": { "x": 20, "y": 85 }
+    },
+    {
+        "id": 10,
+        "name": "Bat's Cave",
+        "features": { "rocks": 0.15, "brambles": 0.1, "webs": 0, "ice": 0, "elements": ["water", "fire", "lightning"] },
+        "boss": { "type": "bat", "hp": 20, "width": 2, "height": 2 },
+        "mapPos": { "x": 65, "y": 68 }
+    },
+    {
+        "id": 15,
+        "name": "Spider's Den",
+        "features": { "rocks": 0.15, "brambles": 0.15, "webs": 0.2, "ice": 0, "elements": ["water", "fire", "lightning", "void"] },
+        "boss": { "type": "spider", "hp": 30, "width": 3, "height": 3 },
+        "mapPos": { "x": 50, "y": 52 }
+    },
+    {
+        "id": 30,
+        "name": "Crystal Core",
+        "features": { "rocks": 0.2, "brambles": 0, "webs": 0, "ice": 0.2, "elements": ["water", "fire", "lightning", "acid", "prism"] },
+        "boss": { "type": "crystal_golem", "hp": 50, "width": 3, "height": 3 },
+        "mapPos": { "x": 50, "y": 2 }
+    }
+]

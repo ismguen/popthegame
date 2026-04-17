@@ -1,0 +1,27 @@
+{
+  "name": "popthegame",
+  "version": "1.0.0",
+  "description": "Dieses ZIP enthält für **jede wichtige reale Studio-Rolle** einen eigenen Markdown-Agenten, angepasst auf dein Spiel.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismguen/popthegame.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ismguen/popthegame/issues"
+  },
+  "homepage": "https://github.com/ismguen/popthegame#readme",
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.8"
+  }
+}
