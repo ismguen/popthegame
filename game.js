@@ -321,6 +321,7 @@ function initGrid() {
     if (level >= 11) features.elements.push('prism');
     if (level >= 12) features.portals = true;
     if (level >= 13) features.elements.push('void');
+    if (level >= 3) features.brambles = 0.08; // New Fairy Forest Blocker
 
     // Boss spawns
     if (level === 10) {
@@ -349,9 +350,11 @@ function initGrid() {
 
             if (rand < features.rocks) {
                 row.push({ type: 'rock', hp: 3 });
-            } else if (rand < features.rocks + features.mirrors) {
+            } else if (rand < features.rocks + (features.brambles || 0)) {
+                row.push({ type: 'bramble', hp: 3 });
+            } else if (rand < features.rocks + (features.brambles || 0) + features.mirrors) {
                 row.push({ type: 'mirror', dir: Math.random() > 0.5 ? '/' : '\\' });
-            } else if (rand < features.rocks + features.mirrors + features.wind) {
+            } else if (rand < features.rocks + (features.brambles || 0) + features.mirrors + features.wind) {
                 row.push({ type: 'wind', dir: ['up','down','left','right'][Math.floor(Math.random()*4)] });
             } else if (rand > 0.4) {
                 let isWebbed = Math.random() < features.webs;
@@ -586,7 +589,7 @@ class Fragment {
                         this.speed = Math.min(this.speed + 4, 25);
                         spawnParticles(this.x, this.y, 5, '#aaffff');
                     } else {
-                        if (!this.pierce || cell.type === 'rock') {
+                        if (!this.pierce || cell.type === 'rock' || cell.type === 'bramble') {
                             this.active = false;
                         }
                         this.hitCells.add(cellKey);
@@ -605,6 +608,21 @@ class Fragment {
                                 score += 50;
                                 floatingTexts.push(new FloatingText(centerX, centerY, "SMASH! +50", '#aaaaaa', 20));
                                 spawnParticles(centerX, centerY, 15, '#aaaaaa');
+                            }
+                        } else if (cell.type === 'bramble') {
+                            if (this.element === 'fire' || this.element === 'acid') {
+                                cell.hp -= 2;
+                            } else {
+                                cell.hp -= 1;
+                            }
+                            playSound('web_break');
+                            spawnParticles(this.x, this.y, 8, '#00ff00');
+                            
+                            if (cell.hp <= 0) {
+                                grid[r][c] = { type: 'empty' };
+                                score += 40;
+                                floatingTexts.push(new FloatingText(centerX, centerY, "CLEARED! +40", '#00ff00', 20));
+                                spawnParticles(centerX, centerY, 15, '#00ff00');
                             }
                         } else if (cell.type === 'drop') {
                             if (this.element === 'acid') {
@@ -705,7 +723,7 @@ function explodeSuperNova(r, c) {
         for(let j=-2; j<=2; j++) {
             let nr = r + i, nc = c + j;
             if (nr>=0 && nr<GRID_SIZE && nc>=0 && nc<GRID_SIZE && grid[nr][nc].type !== 'portal') {
-                if(grid[nr][nc].type === 'rock' || grid[nr][nc].type === 'drop') {
+                if(grid[nr][nc].type === 'rock' || grid[nr][nc].type === 'bramble' || grid[nr][nc].type === 'drop') {
                     grid[nr][nc] = { type: 'empty' };
                     score += 200;
                     spawnParticles(nc*CELL_SIZE+CELL_SIZE/2, nr*CELL_SIZE+CELL_SIZE/2, 10, '#00ff00');
@@ -959,6 +977,10 @@ canvas.addEventListener('click', (e) => {
             playSound('rock_hit');
             canvas.style.transform = `translate(${(Math.random()-0.5)*4}px, ${(Math.random()-0.5)*4}px)`;
             setTimeout(() => { canvas.style.transform = 'translate(0px, 0px)'; }, 50);
+        } else if (cell.type === 'bramble') {
+            playSound('web_break');
+            canvas.style.transform = `translate(${(Math.random()-0.5)*2}px, ${(Math.random()-0.5)*2}px)`;
+            setTimeout(() => { canvas.style.transform = 'translate(0px, 0px)'; }, 50);
         }
     }
 });
@@ -1186,6 +1208,47 @@ function drawGrid() {
                     ctx.lineTo(cx - 5, cy + 10);
                     ctx.stroke();
                 }
+            } else if (cell.type === 'bramble') {
+                ctx.save();
+                ctx.translate(cx, cy);
+                // Rotate slightly based on coordinates for variation
+                ctx.rotate((r * c) * 0.5);
+                
+                ctx.strokeStyle = '#1e5e2e'; // Dark green vines
+                ctx.lineWidth = 4 + (cell.hp);
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = '#00ff00';
+                
+                // Draw vines
+                ctx.beginPath();
+                ctx.moveTo(-CELL_SIZE*0.4, -CELL_SIZE*0.4);
+                ctx.quadraticCurveTo(0, -CELL_SIZE*0.1, CELL_SIZE*0.4, CELL_SIZE*0.4);
+                
+                if (cell.hp >= 2) {
+                    ctx.moveTo(CELL_SIZE*0.4, -CELL_SIZE*0.4);
+                    ctx.quadraticCurveTo(CELL_SIZE*0.1, 0, -CELL_SIZE*0.4, CELL_SIZE*0.4);
+                }
+                
+                if (cell.hp >= 3) {
+                    ctx.moveTo(-CELL_SIZE*0.4, 0);
+                    ctx.quadraticCurveTo(0, CELL_SIZE*0.2, CELL_SIZE*0.4, 0);
+                }
+                ctx.stroke();
+                
+                // Draw magical purple thorns/buds
+                ctx.fillStyle = '#aa00ff';
+                ctx.shadowColor = '#ff00ff';
+                for(let i=0; i<cell.hp * 2; i++) {
+                    let angle = (i / (cell.hp * 2)) * Math.PI * 2;
+                    let dist = CELL_SIZE * 0.25;
+                    ctx.beginPath();
+                    ctx.arc(Math.cos(angle) * dist, Math.sin(angle) * dist, 3 + cell.hp, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                ctx.restore();
             }
         }
     }
